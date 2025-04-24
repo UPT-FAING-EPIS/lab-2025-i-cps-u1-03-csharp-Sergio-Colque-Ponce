@@ -17,6 +17,8 @@ jobs:
       #     dotnet-version: ${{ env.DOTNET_VERSION }}  
       - name: Semgrep scan
         run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
+      #- name: Upload result to GitHub Code Scanning
+      #  uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif
       - name: Install python and prospector-html
@@ -30,7 +32,7 @@ jobs:
         run: |
           . venv/bin/activate
           mkdir -p semgrep-report
-          prospector2html --input semgrep.json --output semgrep-report/index.html --filter semgrep || yes
+          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep || true
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
