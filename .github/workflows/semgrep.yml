@@ -16,7 +16,11 @@ jobs:
       #   with:
       #     dotnet-version: ${{ env.DOTNET_VERSION }}  
       - name: Semgrep scan
-        run: semgrep scan --config='p/default' --json --output semgrep.json --metrics=off
+        run: |
+          semgrep scan --config="p/default" \
+                       --json --output=semgrep.json \
+                       --sarif --output=report.sarif \
+                       --metrics=off
       - name: Install python and prospector-html
         run: |
           apk add --no-cache python3 py3-pip
