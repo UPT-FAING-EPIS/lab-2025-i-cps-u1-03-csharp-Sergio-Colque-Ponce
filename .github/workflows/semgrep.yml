@@ -27,6 +27,9 @@ jobs:
           python3 -m venv venv
           . venv/bin/activate
           pip install prospector2html
+      - name: Verificar contenido de report.sarif
+        run: |
+          cat report.sarif
       - name: Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
         run: |
