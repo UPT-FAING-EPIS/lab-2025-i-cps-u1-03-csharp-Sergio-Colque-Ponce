@@ -19,8 +19,8 @@ jobs:
         run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
       #- name: Upload result to GitHub Code Scanning
       #  uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: report.sarif
+      #   with:
+      #     sarif_file: report.sarif
       - name: Install python and prospector-html
         run: |
           apk add --no-cache python3 py3-pip
