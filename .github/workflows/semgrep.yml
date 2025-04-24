@@ -21,12 +21,12 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif
-      - name: Convert Semgrep report to HTML 
+      - name: Install and Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
         run: |
-          pwd
-          ls
+          pip install prospector-html
           mkdir -p semgrep-report
+          ls
           prospector-html --input report.sarif --output semgrep-report/index.html --filter semgrep
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
