@@ -28,7 +28,7 @@ jobs:
         run: |
           . venv/bin/activate
           mkdir -p semgrep-report
-          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep || true
+          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
