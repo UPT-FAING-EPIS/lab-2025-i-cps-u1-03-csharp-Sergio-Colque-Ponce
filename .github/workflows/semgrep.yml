@@ -1,4 +1,4 @@
-name: 2 - Semgrep Analysis and Publish the HTML Report
+name: Actividad 2 - Semgrep Analysis and Publish the HTML Report
 env:
   DOTNET_VERSION: '8.0'                     # la versión de .NET
 on: push
@@ -21,10 +21,13 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif
-      - name: Install and Convert Semgrep report to HTML 
+      - name: Install python and prospector-html
+        run: |
+          apk add --no-cache python3 py3-pip
+          pip install prospector-html
+      - name: Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
         run: |
-          pip install prospector-html
           mkdir -p semgrep-report
           ls
           prospector-html --input report.sarif --output semgrep-report/index.html --filter semgrep
