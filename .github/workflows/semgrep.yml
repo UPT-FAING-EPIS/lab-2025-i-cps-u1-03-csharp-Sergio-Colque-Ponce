@@ -16,7 +16,7 @@ jobs:
       #   with:
       #     dotnet-version: ${{ env.DOTNET_VERSION }}  
       - name: Semgrep scan
-        run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
+        run: semgrep scan --config='p/default' --json --output semgrep.json --metrics=off
       - name: Install python and prospector-html
         run: |
           apk add --no-cache python3 py3-pip
@@ -28,7 +28,7 @@ jobs:
         run: |
           . venv/bin/activate
           mkdir -p semgrep-report
-          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep
+          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep || true
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
