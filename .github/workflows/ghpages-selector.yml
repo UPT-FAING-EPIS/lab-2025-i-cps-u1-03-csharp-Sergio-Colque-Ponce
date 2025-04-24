@@ -1,0 +1,32 @@
+
+name: Publish selector for semgrep pages and docfx pages
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Site Directory
+        run: mkdir site
+
+      - name: Build index.html
+        run: |
+          echo "<!DOCTYPE html>
+          <html lang='es'>
+          <head><meta charset='UTF-8'><title>Portal del Proyecto</title></head>
+          <body>
+            <h1>Bienvenido al Portal del Proyecto</h1>
+            <ul>
+              <li><a href='./semgrep-report/'>Reporte de Seguridad (Semgrep)</a></li>
+              <li><a href='./docfx/'>Documentación Técnica (DocFX)</a></li>
+            </ul>
+          </body>
+          </html>" > site/index.html
+
+      - name: Post on GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          keep_files: true

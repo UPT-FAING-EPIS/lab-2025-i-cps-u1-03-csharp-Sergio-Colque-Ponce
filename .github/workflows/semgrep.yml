@@ -16,11 +16,13 @@ jobs:
       #   with:
       #     dotnet-version: ${{ env.DOTNET_VERSION }}  
       - name: Semgrep scan
-        run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
-      #- name: Upload result to GitHub Code Scanning
-      #  uses: github/codeql-action/upload-sarif@v3
+        run: semgrep scan --config="p/default" --sarif --output=report.sarif --metrics=off
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: report.sarif
+      - name: Semgrep scan for JSON
+        run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
       - name: Install python and prospector-html
         run: |
           apk add --no-cache python3 py3-pip
@@ -38,3 +40,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: /semgrep-report
+          destination_dir: semgrep  # subdirectory for the report on ghpages
+          keep_files: true  # for dont cleaned any sites
