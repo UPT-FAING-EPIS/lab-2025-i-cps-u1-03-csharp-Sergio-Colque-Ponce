@@ -25,12 +25,8 @@ jobs:
           python3 -m venv venv
           . venv/bin/activate
           pip install prospector2html
-      - name: Convert Semgrep report to HTML 
-        #semgrep-report.html -> index for Gh Paegs
-        run: |
-          . venv/bin/activate
           mkdir -p semgrep-report
-          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep --verbose
+          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
