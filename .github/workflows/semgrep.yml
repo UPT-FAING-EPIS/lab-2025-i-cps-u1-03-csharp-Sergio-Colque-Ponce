@@ -24,6 +24,8 @@ jobs:
       - name: Install python and prospector-html
         run: |
           apk add --no-cache python3 py3-pip
+          python3 -m venv venv
+          . venv/bin/activate
           pip install prospector-html
       - name: Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
