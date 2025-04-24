@@ -16,7 +16,7 @@ jobs:
       #   with:
       #     dotnet-version: ${{ env.DOTNET_VERSION }}  
       - name: Semgrep scan
-        run: semgrep scan --config="p/default" --sarif --output=report.sarif --metrics=off
+        run: semgrep scan --config='p/default' . --json --output semgrep.json --metrics=off
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
@@ -30,9 +30,9 @@ jobs:
       - name: Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
         run: |
+          . venv/bin/activate
           mkdir -p semgrep-report
-          ls
-          prospector-html --input report.sarif --output semgrep-report/index.html --filter semgrep
+          prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
