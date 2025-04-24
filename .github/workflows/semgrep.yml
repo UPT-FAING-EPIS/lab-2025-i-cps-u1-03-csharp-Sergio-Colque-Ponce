@@ -30,6 +30,7 @@ jobs:
       - name: Convert Semgrep report to HTML 
         #semgrep-report.html -> index for Gh Paegs
         run: |
+          . venv/bin/activate
           mkdir -p semgrep-report
           ls
           prospector-html --input report.sarif --output semgrep-report/index.html --filter semgrep
