@@ -2,7 +2,7 @@ namespace Bank.WebApi.Models
 {
     public class BankAccount
     {
-        private readonly string m_customerName;
+        private readonly string m_customerName = string.Empty;
         private double m_balance;
         private BankAccount() { }
         public BankAccount(string customerName, double balance)
@@ -14,16 +14,14 @@ namespace Bank.WebApi.Models
         public double Balance { get { return m_balance; }  }
         public void Debit(double amount)
         {
-            if (amount > m_balance)
-                throw new ArgumentOutOfRangeException("amount");
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount");
+            ArgumentOutOfRangeException.ThrowIfGreaterThan(amount, m_balance);
+            ArgumentOutOfRangeException.ThrowIfNegative(amount);
             m_balance -= amount;
         }
+
         public void Credit(double amount)
         {
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount");
+            ArgumentOutOfRangeException.ThrowIfNegative(amount);
             m_balance += amount;
         }
     }

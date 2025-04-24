@@ -1,0 +1,50 @@
+name: Actividad 4 - Package NuGet
+env:
+  DOTNET_VERSION: '8.0' # la versión de .NET
+  SONAR_ORG: 'sergio-colque-ponce'                    # Nombre de la organización de sonar cloud
+  SONAR_PROJECT: 'sergio-colque-ponce_lab-2025-i-cps-u1-03-csharp-sergio-colque-ponce'        # Key ID del proyecto de sonar
+  NUGET_PROJECT: 'Bank.WebApi'
+  NUGET_OUTPUT_DIR: './nupkg'
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - uses: snyk/actions/setup@master
+    - name: Configurando la versión de NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Install SonarScanner
+      run: dotnet tool install -g dotnet-sonarscanner
+    - name: Restore dependencies
+      run: dotnet restore "Bank/Bank.sln"
+    - name: Begin SonarCloud analysis
+      run: |
+        dotnet-sonarscanner begin \
+          /k:"${{ env.SONAR_PROJECT }}" \
+          /o:"${{ env.SONAR_ORG }}" \
+          /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="https://sonarcloud.io" \
+          /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
+          /d:sonar.qualitygate.wait=true \
+          /d:sonar.exclusions="**/Program.cs,**/code-test-results.html"
+    - name: Run tests with coverage
+      run: dotnet test "Bank/Bank.sln" --collect:"XPlat Code Coverage;Format=opencover"
+    - name: Build solution
+      run: dotnet build "Bank/Bank.sln" --no-restore --configuration Release
+    - name: End SonarCloud analysis
+      run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+    - name: Pack NuGet package
+      run: |
+        dotnet pack "Bank/${{ env.NUGET_PROJECT }}/${{ env.NUGET_PROJECT }}.csproj" \
+          --configuration Release \
+          --output ${{ env.NUGET_OUTPUT_DIR }}
+    - name: Publish NuGet package to GitHub Packages
+      run: | 
+        dotnet nuget push "${{ env.NUGET_OUTPUT_DIR }}/*.nupkg" \
+          --source "https://nuget.pkg.github.com/Sergio-Colque-Ponce/index.json" \
+          --api-key "${{ secrets.GH_TOKEN }}" \
+          --skip-duplicate

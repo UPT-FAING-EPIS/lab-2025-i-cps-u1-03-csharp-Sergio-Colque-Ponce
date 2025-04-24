@@ -1,0 +1,35 @@
+name: 2 - Semgrep Analysis and Publish the HTML Report
+env:
+  DOTNET_VERSION: '8.0'                     # la versión de .NET
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    container:
+      # A Docker image with Semgrep installed. Do not change this.
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snyk/actions/setup@master
+      # - name: Configurando la versión de NET
+      #   uses: actions/setup-dotnet@v4
+      #   with:
+      #     dotnet-version: ${{ env.DOTNET_VERSION }}  
+      - name: Semgrep scan
+        run: semgrep scan --config="p/default" --sarif --output=report.sarif --metrics=off
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: report.sarif
+      - name: Convert Semgrep report to HTML 
+        #semgrep-report.html -> index for Gh Paegs
+        run: |
+          pwd
+          ls
+          mkdir -p semgrep-report
+          prospector-html --input report.sarif --output semgrep-report/index.html --filter semgrep
+      - name: Upload HTML report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /semgrep-report
