@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <PackageId>Bank.WebApi.Sergio.Colque</PackageId>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Version>1.0.0</Version>
-    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
