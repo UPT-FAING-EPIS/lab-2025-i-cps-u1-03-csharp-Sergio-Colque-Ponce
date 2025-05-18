@@ -26,13 +26,12 @@ jobs:
         run: |
           dotnet pack Bank/Bank.WebApi/Bank.WebApi.csproj -c Release \
             -p:PackageVersion=202.207.3503 \
-            -p:RepositoryUrl=https://github.com/${{ github.repository }} \
-            -p:RepositoryType=git
+            -p:RepositoryUrl=https://github.com/${{ github.repository }}
 #        dotnet pack MyMath/Math.Lib/Math.Lib.csproj -c Release -p:PackageVersion=202.207.3503
       - name: NuGet sources
         run: dotnet nuget list source
       - name: Push NuGet package to GitHub Packages
-        run: dotnet nuget push Bank/Bank.WebApi/bin/Release/Bank.WebApi.Sergio.Colque.202.207.3503.nupkg --skip-duplicate --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }}
+        run: dotnet nuget push Bank/Bank.WebApi/bin/Release/Bank.WebApi.202.207.3503.nupkg --skip-duplicate --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }}
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
