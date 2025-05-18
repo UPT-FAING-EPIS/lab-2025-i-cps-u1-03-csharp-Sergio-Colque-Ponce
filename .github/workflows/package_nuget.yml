@@ -39,8 +39,8 @@ jobs:
       run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
     - name: Pack NuGet package
       run: |
-        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:PackageVersion=202.207.3503 -p:RepositoryUrl=https://github.com/${{ github.repository }} -p:RepositoryType=git
+        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:PackageVersion=20.2207.3503 -p:RepositoryUrl=https://github.com/${{ github.repository }} -p:RepositoryType=git
     - name: Publish NuGet package to GitHub Packages
       run: | 
         ls Bank/Bank.WebApi/bin/Release
-        dotnet nuget push Bank/Bank.WebApi/bin/Release/Bank.WebApi.202.207.3503.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
+        dotnet nuget push Bank/Bank.WebApi/bin/Release/Bank.WebApi.Sergio.Colque.20.2207.3503.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
