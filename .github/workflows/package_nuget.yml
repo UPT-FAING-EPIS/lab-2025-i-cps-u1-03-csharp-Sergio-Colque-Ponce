@@ -44,7 +44,8 @@ jobs:
           --output ${{ env.NUGET_OUTPUT_DIR }}
     - name: Publish NuGet package to GitHub Packages
       run: | 
+        ls Bank/Bank.WebApi/bin/Release
         dotnet nuget push "${{ env.NUGET_OUTPUT_DIR }}/*.nupkg" \
-          --source "https://nuget.pkg.github.com/Sergio-Colque-Ponce/index.json" \
-          --api-key "${{ secrets.GH_TOKEN }}" \
+          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+          --api-key "${{ secrets.PACKAGE_NUGET }}" \
           --skip-duplicate
