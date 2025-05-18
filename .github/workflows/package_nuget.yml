@@ -39,13 +39,11 @@ jobs:
       run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
     - name: Pack NuGet package
       run: |
-        dotnet pack "Bank/${{ env.NUGET_PROJECT }}/${{ env.NUGET_PROJECT }}.csproj" \
-          --configuration Release \
-          --output ${{ env.NUGET_OUTPUT_DIR }}
+        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:RepositoryUrl=https://github.com/${{ github.repository }}
+        ls Bank/Bank.WebApi/bin/Release/net8.0
     - name: Publish NuGet package to GitHub Packages
       run: | 
         ls Bank/Bank.WebApi/bin/Release
         dotnet nuget push "${{ env.NUGET_OUTPUT_DIR }}/*.nupkg" \
           --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
-          --api-key "${{ secrets.PACKAGE_NUGET }}" \
-          --skip-duplicate
+          --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
