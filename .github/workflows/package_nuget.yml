@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
     - uses: snyk/actions/setup@master
     - name: Configurando la versión de NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Install SonarScanner
@@ -39,11 +39,8 @@ jobs:
       run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
     - name: Pack NuGet package
       run: |
-        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:RepositoryUrl=https://github.com/${{ github.repository }}
-        ls Bank/Bank.WebApi/bin/Release/net8.0
+        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:PackageVersion=202.207.3503 -p:RepositoryUrl=https://github.com/${{ github.repository }} -p:RepositoryType=git
     - name: Publish NuGet package to GitHub Packages
       run: | 
         ls Bank/Bank.WebApi/bin/Release
-        dotnet nuget push "Bank/Bank.WebApi/bin/Release/*.nupkg" \
-          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
-          --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
+        dotnet nuget push Bank/Bank.WebApi/bin/Release/Bank.WebApi.202.207.3503.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
