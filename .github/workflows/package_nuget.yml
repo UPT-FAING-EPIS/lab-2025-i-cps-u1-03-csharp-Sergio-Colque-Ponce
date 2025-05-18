@@ -44,6 +44,6 @@ jobs:
     - name: Publish NuGet package to GitHub Packages
       run: | 
         ls Bank/Bank.WebApi/bin/Release
-        dotnet nuget push "${{ env.NUGET_OUTPUT_DIR }}/*.nupkg" \
+        dotnet nuget push "Bank/Bank.Domain/bin/Release/*.nupkg" \
           --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
           --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
