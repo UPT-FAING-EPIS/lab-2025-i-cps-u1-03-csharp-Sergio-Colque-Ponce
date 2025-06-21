@@ -7,20 +7,46 @@ env:
   NUGET_OUTPUT_DIR: './nupkg'
 on: push
 jobs:
-  security:
+  # Job 1: Pruebas unitarias y reporte de pruebas automatizadas
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+    - name: Configurando la versión de NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Restore dependencies
+      run: dotnet restore "Bank/Bank.sln"
+    - name: Run tests with coverage
+      run: dotnet test "Bank/Bank.sln" --collect:"XPlat Code Coverage;Format=opencover"
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-coverage
+        path: '**/coverage.opencover.xml'
+
+  # Job 2: Analisis con SonarCloud
+  sonar-analysis:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - uses: snyk/actions/setup@master
     - name: Configurando la versión de NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Install SonarScanner
       run: dotnet tool install -g dotnet-sonarscanner
     - name: Restore dependencies
       run: dotnet restore "Bank/Bank.sln"
+    - name: Download test coverage
+      uses: actions/download-artifact@v4
+      with:
+        name: test-coverage
     - name: Begin SonarCloud analysis
       run: |
         dotnet-sonarscanner begin \
@@ -31,16 +57,33 @@ jobs:
           /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml" \
           /d:sonar.qualitygate.wait=true \
           /d:sonar.exclusions="**/Program.cs,**/code-test-results.html"
-    - name: Run tests with coverage
-      run: dotnet test "Bank/Bank.sln" --collect:"XPlat Code Coverage;Format=opencover"
     - name: Build solution
       run: dotnet build "Bank/Bank.sln" --no-restore --configuration Release
     - name: End SonarCloud analysis
       run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
+  # Job 3: Contruya un archivo .nuget a partir del proyecto Bank.WebApi y lo publique como un Paquete de Github
+  nuget-package:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, sonar-analysis]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Configurando la versión de NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Restore dependencies
+      run: dotnet restore "Bank/Bank.sln"
+    - name: Build solution
+      run: dotnet build "Bank/Bank.sln" --no-restore --configuration Release
     - name: Pack NuGet package
       run: |
-        dotnet pack "Bank/Bank.WebApi/Bank.WebApi.csproj" -c Release -p:PackageId=UPTFAING.Bank.WebApi -p:PackageVersion=20.2207.3503 -p:RepositoryUrl=https://github.com/${{ github.repository }}
+        dotnet pack Bank/Bank.WebApi/Bank.WebApi.csproj -c Release \
+            -p:PackageId=Bank.WebApi.Lab03UI \
+            -p:PackageVersion=202.207.3503 \
+            -p:RepositoryUrl=https://github.com/${{ github.repository }} \
+            -p:RepositoryType=git \
+            --output ./packages
     - name: Publish NuGet package to GitHub Packages
-      run: | 
-        ls Bank/Bank.WebApi/bin/Release
-        dotnet nuget push Bank/Bank.WebApi/bin/Release/*.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
+      run: dotnet nuget push ./packages/*.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.PACKAGE_NUGET }} --skip-duplicate
