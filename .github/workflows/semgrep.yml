@@ -35,10 +35,12 @@ jobs:
           . venv/bin/activate
           mkdir -p semgrep-report
           prospector-html --input semgrep.json --output semgrep-report/index.html --filter semgrep || true
+      - name: Cat semgrep html
+        run: cat semgrep-report/index.html
       - name: Upload HTML report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /semgrep-report
+          publish_dir: semgrep-report
           destination_dir: semgrep  # subdirectory for the report on ghpages
           keep_files: true  # for dont cleaned any sites
