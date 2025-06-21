@@ -42,7 +42,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bank.WebApi.Models.BankAccount",
-      "Summary": null
+      "Summary": "<p sourcefile=\"docs/Bank.WebApi.Models.BankAccount.yml\" sourcestartlinenumber=\"1\">Representa una cuenta bancaria con funcionalidades básicas de débito y crédito.\nPermite gestionar el balance de un cliente específico.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -70,7 +70,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Bank.WebApi.Tests.BankAccountTests",
-      "Summary": null
+      "Summary": "<p sourcefile=\"docs/Bank.WebApi.Tests.BankAccountTests.yml\" sourcestartlinenumber=\"1\">Contiene las pruebas unitarias para la clase BankAccount.\nVerifica el comportamiento correcto de las operaciones de débito y crédito.</p>\n"
     },
     {
       "type": "ManagedReference",

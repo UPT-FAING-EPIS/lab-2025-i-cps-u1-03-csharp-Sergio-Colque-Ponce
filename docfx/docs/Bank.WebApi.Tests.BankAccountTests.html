@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class BankAccountTests | Bank App ">
       
-      
+      <meta name="description" content="Contiene las pruebas unitarias para la clase BankAccount. Verifica el comportamiento correcto de las operaciones de d&#233;bito y cr&#233;dito.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -89,7 +89,7 @@
 
 
   <h1 id="Bank_WebApi_Tests_BankAccountTests" data-uid="Bank.WebApi.Tests.BankAccountTests" class="text-break">
-Class BankAccountTests  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L5"><i class="bi bi-code-slash"></i></a>
+Class BankAccountTests  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -97,7 +97,9 @@ Class BankAccountTests  <a class="header-action link-secondary" title="View sour
   <dl><dt>Assembly</dt><dd>Bank.WebApi.Tests.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>Contiene las pruebas unitarias para la clase BankAccount.
+Verifica el comportamiento correcto de las operaciones de débito y crédito.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -146,6 +148,14 @@ Class BankAccountTests  <a class="header-action link-secondary" title="View sour
 
 
 
+  <h2 id="Bank_WebApi_Tests_BankAccountTests_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Esta clase de pruebas utiliza NUnit para validar:</p>
+<ul>
+<li>Operaciones de débito válidas e inválidas</li>
+<li>Operaciones de crédito válidas e inválidas</li>
+<li>Manejo correcto de excepciones</li>
+</ul>
+</div>
 
 
   <h2 class="section" id="methods">Methods
@@ -156,10 +166,11 @@ Class BankAccountTests  <a class="header-action link-secondary" title="View sour
 
   <h3 id="Bank_WebApi_Tests_BankAccountTests_Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException" data-uid="Bank.WebApi.Tests.BankAccountTests.Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException">
   Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Verifica que un crédito con monto negativo lance ArgumentOutOfRangeException.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -175,6 +186,9 @@ public void Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()</code>
 
 
 
+  <h4 class="section" id="Bank_WebApi_Tests_BankAccountTests_Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Prueba la validación de entrada para prevenir créditos con valores negativos.</p>
+</div>
 
 
 
@@ -183,10 +197,11 @@ public void Credit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()</code>
 
   <h3 id="Bank_WebApi_Tests_BankAccountTests_Credit_WithPositiveAmount_IncreasesBalance" data-uid="Bank.WebApi.Tests.BankAccountTests.Credit_WithPositiveAmount_IncreasesBalance">
   Credit_WithPositiveAmount_IncreasesBalance()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L81"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Verifica que un crédito con monto positivo incremente correctamente el balance.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -202,6 +217,9 @@ public void Credit_WithPositiveAmount_IncreasesBalance()</code></pre>
 
 
 
+  <h4 class="section" id="Bank_WebApi_Tests_BankAccountTests_Credit_WithPositiveAmount_IncreasesBalance_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Prueba el escenario normal de depósito de dinero en la cuenta.</p>
+</div>
 
 
 
@@ -210,10 +228,11 @@ public void Credit_WithPositiveAmount_IncreasesBalance()</code></pre>
 
   <h3 id="Bank_WebApi_Tests_BankAccountTests_Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException" data-uid="Bank.WebApi.Tests.BankAccountTests.Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException">
   Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Verifica que un débito con monto mayor al balance lance ArgumentOutOfRangeException.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -229,6 +248,9 @@ public void Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException
 
 
 
+  <h4 class="section" id="Bank_WebApi_Tests_BankAccountTests_Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Prueba el comportamiento de validación cuando se intenta debitar más dinero del disponible.</p>
+</div>
 
 
 
@@ -237,10 +259,11 @@ public void Debit_WithAmountGreaterThanBalance_ThrowsArgumentOutOfRangeException
 
   <h3 id="Bank_WebApi_Tests_BankAccountTests_Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException" data-uid="Bank.WebApi.Tests.BankAccountTests.Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException">
   Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Verifica que un débito con monto negativo lance ArgumentOutOfRangeException.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -256,6 +279,9 @@ public void Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()</code><
 
 
 
+  <h4 class="section" id="Bank_WebApi_Tests_BankAccountTests_Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Prueba la validación de entrada para prevenir débitos con valores negativos.</p>
+</div>
 
 
 
@@ -264,10 +290,11 @@ public void Debit_WithNegativeAmount_ThrowsArgumentOutOfRangeException()</code><
 
   <h3 id="Bank_WebApi_Tests_BankAccountTests_Debit_WithValidAmount_UpdatesBalance" data-uid="Bank.WebApi.Tests.BankAccountTests.Debit_WithValidAmount_UpdatesBalance">
   Debit_WithValidAmount_UpdatesBalance()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L24"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Verifica que un débito con monto válido actualice correctamente el balance.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -283,6 +310,9 @@ public void Debit_WithValidAmount_UpdatesBalance()</code></pre>
 
 
 
+  <h4 class="section" id="Bank_WebApi_Tests_BankAccountTests_Debit_WithValidAmount_UpdatesBalance_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Prueba el escenario normal donde el monto a debitar es menor que el balance actual.</p>
+</div>
 
 
 
@@ -291,7 +321,7 @@ public void Debit_WithValidAmount_UpdatesBalance()</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L5" class="edit-link">Edit this page</a>
+          <a href="https://github.com/UPT-FAING-EPIS/lab-2025-i-cps-u1-03-csharp-Sergio-Colque-Ponce/blob/main/Bank/Bank.WebApi.Tests/BanckAccountTests.cs/#L16" class="edit-link">Edit this page</a>
         </div>
 
 
