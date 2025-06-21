@@ -28,7 +28,7 @@ jobs:
       run: dotnet build Bank/Bank.WebApi/Bank.WebApi.csproj -c Release
 
     - name: Create Release Package
-      run: dotnet pack Bank/Bank.WebApi/Bank.WebApi.csproj -c Release -o out
+      run: dotnet pack Bank/Bank.WebApi/Bank.WebApi.csproj -c Release -o packages
 
     - name: Create Git tag
       run: |
@@ -63,5 +63,5 @@ jobs:
       with:
         tag: ${{ env.NAME }}
         name: "Release ${{ env.NAME }}"
-        files: out/*.nupkg
+        files: packages/*.nupkg
         token: ${{ secrets.GH_TOKEN }}
