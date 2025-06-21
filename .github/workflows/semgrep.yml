@@ -42,5 +42,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: semgrep-report
-          destination_dir: semgrep  # subdirectory for the report on ghpages
+          destination_dir: semgrep-report  # subdirectory for the report on ghpages
           keep_files: true  # for dont cleaned any sites
